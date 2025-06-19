@@ -1,4 +1,4 @@
-library ai_barcode_scanner;
+library;
 
 export 'package:mobile_scanner/mobile_scanner.dart';
 

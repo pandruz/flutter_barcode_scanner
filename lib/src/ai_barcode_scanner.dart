@@ -64,13 +64,13 @@ class AiBarcodeScanner extends StatefulWidget {
   ///
   /// If this is null, defaults to a black [ColoredBox]
   /// with a centered white [Icons.error] icon.
-  final Widget Function(BuildContext, MobileScannerException, Widget?)? errorBuilder;
+  final Widget Function(BuildContext, MobileScannerException)? errorBuilder;
 
   /// The function that builds a placeholder widget when the scanner
   /// is not yet displaying its camera preview.
   ///
   /// If this is null, a black [ColoredBox] is used as placeholder.
-  final Widget Function(BuildContext, Widget?)? placeholderBuilder;
+  final WidgetBuilder? placeholderBuilder;
 
   /// Called when this object is removed from the tree permanently.
   final void Function()? onDispose;
@@ -312,7 +312,7 @@ class _AiBarcodeScannerState extends State<AiBarcodeScanner> {
             onDetect: onDetect,
             controller: controller,
             fit: widget.fit,
-            errorBuilder: widget.errorBuilder ?? (_, error, ___) => const ErrorBuilder(),
+            errorBuilder: widget.errorBuilder ?? (_, error) => const ErrorBuilder(),
             placeholderBuilder: widget.placeholderBuilder,
             scanWindow: widget.scanWindow,
             key: widget.key,
@@ -321,7 +321,7 @@ class _AiBarcodeScannerState extends State<AiBarcodeScanner> {
           ),
           ValueListenableBuilder<bool?>(
             valueListenable: _isSuccess,
-            builder: (context, isSuccess, __) {
+            builder: (context, isSuccess, _) {
               return widget.customOverlayBuilder?.call(context, isSuccess, controller) ??
                   Container(
                     decoration: ShapeDecoration(

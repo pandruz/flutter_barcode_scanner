@@ -30,32 +30,23 @@ class DraggableSheet extends StatelessWidget {
             ...[
               if (!hideDragHandler)
                 Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  decoration: BoxDecoration(color: Theme.of(context).dividerColor, borderRadius: BorderRadius.circular(10)),
                   margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: const SizedBox(
-                    width: 40,
-                    height: 5,
-                  ),
+                  child: const SizedBox(width: 40, height: 5),
                 ),
               if (!hideTitle) ...[
-                const SizedBox(height: 6),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                SizedBox(
+                  width: double.infinity,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 6),
-                const Divider(),
-              ]
+              ],
             ],
-            Expanded(
-              child: child,
-            ),
+            Expanded(child: child),
           ],
         );
       },

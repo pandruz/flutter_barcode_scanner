@@ -12,9 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
-    );
+    return const MaterialApp(home: HomePage());
   }
 }
 
@@ -30,16 +28,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(' Scanner'),
-      ),
+      appBar: AppBar(title: const Text(' Scanner')),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ElevatedButton(
+            GestureDetector(
               child: const Text('Scan Barcode'),
-              onPressed: () async {
+              onTap: () async {
                 await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => AiBarcodeScanner(
@@ -49,13 +45,10 @@ class _HomePageState extends State<HomePage> {
                         debugPrint("Barcode scanner disposed!");
                       },
                       hideGalleryButton: false,
-                      controller: MobileScannerController(
-                        detectionSpeed: DetectionSpeed.noDuplicates,
-                      ),
+                      controller: MobileScannerController(detectionSpeed: DetectionSpeed.noDuplicates),
                       onDetect: (BarcodeCapture capture) {
                         /// The row string scanned barcode value
-                        final String? scannedValue =
-                            capture.barcodes.first.rawValue;
+                        final String? scannedValue = capture.barcodes.first.rawValue;
                         debugPrint("Barcode scanned: $scannedValue");
 
                         /// The `Uint8List` image is only available if `returnImage` is set to `true`.
@@ -72,11 +65,6 @@ class _HomePageState extends State<HomePage> {
                       },
                       validator: (value) {
                         if (value.barcodes.isEmpty) {
-                          return false;
-                        }
-                        if (!(value.barcodes.first.rawValue
-                                ?.contains('flutter.dev') ??
-                            false)) {
                           return false;
                         }
                         return true;
